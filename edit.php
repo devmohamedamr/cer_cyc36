@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(empty($_SESSION['user'])){
+if(empty($_SESSION['user']) || $_SESSION['user']['role'] == 1){
     header("location: login.php");
 }
 require "lib/category.php";

@@ -30,6 +30,9 @@ if(isset($_GET['keyword'])){
     <title>Document</title>
 </head>
 <body>
+    <?php if(isset($_COOKIE['msg'])): ?>
+    <h1><?= $_COOKIE['msg'];  ?></h1>
+    <?php endif; ?>
     <?php if($_SESSION['user']['role'] == 2): ?>
         <a href="add.php">add new data</a>
     <?php endif; ?>

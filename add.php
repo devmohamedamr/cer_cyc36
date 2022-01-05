@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(empty($_SESSION['user'])){
+if(empty($_SESSION['user']) || $_SESSION['user']['role'] == 1){
     header("location: login.php");
 }
 require  "lib/category.php";
@@ -11,6 +11,7 @@ if(isset($_POST['category'])){
 
         $res = add($_POST['category']);
         if($res == 1){
+            setcookie("msg","category inserted", time() + 2,'/');
 //        echo "row inserted";
             header("location: index.php");
         }else{
