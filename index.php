@@ -1,9 +1,21 @@
 <?php
 
+session_start();
+
+if(empty($_SESSION['user'])){
+    header("location: login.php");
+}
+
+
 require "lib/category.php";
 
+if(isset($_GET['keyword'])){
+    $data =  search($_GET['keyword']);
+}else{
+    $data = show();
 
-$data = show();
+}
+
 
 
 
@@ -19,6 +31,10 @@ $data = show();
 </head>
 <body>
     <a href="add.php">add new data</a>
+    <form action="index.php" method="get">
+        <input type="text" name="keyword">
+        <input type="submit">
+    </form>
     <table border="1">
         <tr>
             <th>id</th>
@@ -28,6 +44,7 @@ $data = show();
         </tr>
 
         <!--   php     -->
+        <?php if(!empty($data)): ?>
         <?php foreach ($data as $row): ?>
         <tr>
             <td><?= $row['id']; ?></td>
@@ -36,6 +53,11 @@ $data = show();
             <td><a href="update.php?id=<?= $row['id']; ?>">update</a></td>
         </tr>
         <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="4">no data</td>
+            </tr>
+        <?php endif; ?>
         <!--    endphp    -->
     </table>
 </body>

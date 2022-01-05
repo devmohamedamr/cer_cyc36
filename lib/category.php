@@ -32,7 +32,7 @@ function show(){
         $data[] = $row;
     }
 
-    return $data;
+    return (!empty($data)) ? $data : [];
 }
 
 function getCategoryById($id){
@@ -40,4 +40,15 @@ function getCategoryById($id){
     $row = mysqli_fetch_assoc($query);
 
     return $row;
+}
+
+
+function search($key){
+    $pattern = "%$key%";
+    $query = mysqli_query($GLOBALS['connect'],"SELECT * FROM `category` WHERE `title` like '$pattern' ");
+    while($row = mysqli_fetch_assoc($query)){
+        $data[] = $row;
+    }
+
+    return (!empty($data)) ? $data : [];
 }

@@ -1,15 +1,24 @@
 <?php
+session_start();
 
+if(empty($_SESSION['user'])){
+    header("location: login.php");
+}
 require  "lib/category.php";
 
 if(isset($_POST['category'])){
-    $res = add($_POST['category']);
-    if($res == 1){
+    if($_POST['category'] != ''){
+
+        $res = add($_POST['category']);
+        if($res == 1){
 //        echo "row inserted";
-        header("location: index.php");
-    }else{
-        echo "error";
+            header("location: index.php");
+        }else{
+            echo "error";
+        }
     }
+
+
 }
 
 
