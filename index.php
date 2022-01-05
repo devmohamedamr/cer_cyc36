@@ -30,7 +30,9 @@ if(isset($_GET['keyword'])){
     <title>Document</title>
 </head>
 <body>
-    <a href="add.php">add new data</a>
+    <?php if($_SESSION['user']['role'] == 2): ?>
+        <a href="add.php">add new data</a>
+    <?php endif; ?>
     <form action="index.php" method="get">
         <input type="text" name="keyword">
         <input type="submit">
@@ -39,8 +41,10 @@ if(isset($_GET['keyword'])){
         <tr>
             <th>id</th>
             <th>title</th>
+            <?php if($_SESSION['user']['role'] == 2): ?>
             <th>delete</th>
             <th>update</th>
+            <?php endif; ?>
         </tr>
 
         <!--   php     -->
@@ -49,8 +53,10 @@ if(isset($_GET['keyword'])){
         <tr>
             <td><?= $row['id']; ?></td>
             <td><?= $row['title']; ?></td>
+            <?php if($_SESSION['user']['role'] == 2): ?>
             <td><a href="delete.php?id=<?= $row['id']; ?>">delete</a></td>
             <td><a href="update.php?id=<?= $row['id']; ?>">update</a></td>
+            <?php endif; ?>
         </tr>
         <?php endforeach; ?>
         <?php else: ?>
